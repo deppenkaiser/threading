@@ -17,4 +17,14 @@ void threading_initialize_critical_section(threading_critical_section_t* pcritic
 {
     pthread_mutex_init(pcritical_section, NULL);
 }
+
+void threading_lock_critical_section(threading_critical_section_t* pcritical_section)
+{
+    pthread_mutex_lock(pcritical_section);
+}
+
+void threading_unlock_critical_section(threading_critical_section_t* pcritical_section)
+{
+    pthread_mutex_unlock(pcritical_section);
+}
 #endif
