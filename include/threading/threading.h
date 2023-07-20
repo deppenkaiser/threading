@@ -40,12 +40,6 @@ typedef CRITICAL_SECTION threading_critical_section_t;
 
 typedef SOCKET socket_handle_t;
 
-/************************************ string ******************************************/
-
-#define STRING_MAXLEN 4096
-
-typedef char String[STRING_MAXLEN];
-
 #endif
 
 typedef threading_thread_return_type_t (*threading_thread_function)(void* puser_data);
