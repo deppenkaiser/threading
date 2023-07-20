@@ -22,15 +22,6 @@ typedef int socket_handle_t;
 #define SOCKET_INVALID_SOCKET -1
 #define SOCKET_ERROR -1
 
-/************************************ string ******************************************/
-
-#define STRING_MAXLEN 4096
-
-typedef char String[STRING_MAXLEN];
-
-int strcpy_s(char* pDestination, size_t nDestinantionSizeBytes, const char* pSource);
-int strcat_s(char* pDestination, size_t nDestinantionSizeBytes, const char* pSource);
-
 #endif // LINUX
 
 #ifdef WINDOWS

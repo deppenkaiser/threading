@@ -1,4 +1,4 @@
-#include "threading.h"
+#include "include/threading/threading.h"
 
 #ifdef LINUX
 threading_thread_handle_t threading_create_thread(threading_thread_function function)

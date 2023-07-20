@@ -13,11 +13,10 @@ endif (MSVC)
 target_sources(threading PRIVATE
     src/threading.c
     src/socket.c
-    src/string.c
 )
 
 target_include_directories(threading PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/include
+    ${CMAKE_CURRENT_LIST_DIR}
 )
 
 target_link_libraries(threading
