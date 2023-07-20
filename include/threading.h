@@ -33,6 +33,30 @@ int strcat_s(char* pDestination, size_t nDestinantionSizeBytes, const char* pSou
 
 #endif // LINUX
 
+#ifdef WINDOWS
+
+#include <WinSock2.h>
+#include <stdbool.h>
+#include <windows.h>
+
+typedef DWORD threading_thread_return_type_t;
+typedef HANDLE threading_thread_handle_t;
+typedef CRITICAL_SECTION threading_critical_section_t;
+
+#define THREADING_INVALID_THREADHANDLE NULL
+
+/************************************ socket ******************************************/
+
+typedef SOCKET socket_handle_t;
+
+/************************************ string ******************************************/
+
+#define STRING_MAXLEN 4096
+
+typedef char String[STRING_MAXLEN];
+
+#endif
+
 typedef threading_thread_return_type_t (*threading_thread_function)(void* puser_data);
 
 threading_thread_handle_t threading_create_thread(threading_thread_function function);
