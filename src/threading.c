@@ -1,6 +1,5 @@
-#include "include/threading/threading.h"
+#include "threading/threading.h"
 
-#ifdef LINUX
 threading_thread_handle_t threading_create_thread(threading_thread_function function)
 {
     threading_thread_handle_t handle = THREADING_INVALID_THREADHANDLE;
@@ -27,4 +26,3 @@ void threading_unlock_critical_section(threading_critical_section_t* pcritical_s
 {
     pthread_mutex_unlock(pcritical_section);
 }
-#endif

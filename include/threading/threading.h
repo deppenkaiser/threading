@@ -1,22 +1,12 @@
 #pragma once
 
-#ifdef LINUX
-    #include <pthread.h>
-    typedef void* threading_thread_return_type_t;
-    typedef pthread_t threading_thread_handle_t;
-    typedef pthread_mutex_t threading_critical_section_t;
-    #define THREADING_INVALID_THREADHANDLE (pthread_t) NULL
-#endif // LINUX
+#include <pthread.h>
 
-#ifdef WINDOWS
-    #include <stdbool.h>
-    #include <windows.h>
-    typedef DWORD threading_thread_return_type_t;
-    typedef HANDLE threading_thread_handle_t;
-    typedef CRITICAL_SECTION threading_critical_section_t;
-    #define THREADING_INVALID_THREADHANDLE NULL
-#endif
+#define THREADING_INVALID_THREADHANDLE (pthread_t) NULL
 
+typedef void* threading_thread_return_type_t;
+typedef pthread_t threading_thread_handle_t;
+typedef pthread_mutex_t threading_critical_section_t;
 typedef threading_thread_return_type_t (*threading_thread_function)(void* puser_data);
 
 threading_thread_handle_t threading_create_thread(threading_thread_function function);
