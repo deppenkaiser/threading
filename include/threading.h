@@ -20,6 +20,16 @@ typedef pthread_mutex_t threading_critical_section_t;
 typedef int socket_handle_t;
 
 #define SOCKET_INVALID_SOCKET -1
+#define SOCKET_ERROR -1
+
+/************************************ string ******************************************/
+
+#define STRING_MAXLEN 4096
+
+typedef char String[STRING_MAXLEN];
+
+int strcpy_s(char* pDestination, size_t nDestinantionSizeBytes, const char* pSource);
+int strcat_s(char* pDestination, size_t nDestinantionSizeBytes, const char* pSource);
 
 #endif // LINUX
 
@@ -37,3 +47,6 @@ socket_handle_t socket_create_socket();
 bool socket_bind_and_listen(socket_handle_t socket);
 socket_handle_t socket_accept_incomming_connection(socket_handle_t socket);
 void socket_close(socket_handle_t* psocket);
+
+/************************************ string ******************************************/
+
