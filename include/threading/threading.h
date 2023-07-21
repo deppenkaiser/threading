@@ -1,6 +1,7 @@
 #pragma once
 
 #include <pthread.h>
+#include <unistd.h>
 
 #define THREADING_INVALID_THREADHANDLE (pthread_t) NULL
 
