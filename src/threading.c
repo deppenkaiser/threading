@@ -1,13 +1,13 @@
 #include "threading/threading.h"
 
-threading_thread_handle_t threading_create_thread(threading_thread_function function)
+pthread_t threading_create_thread(threading_thread_function function)
 {
-    threading_thread_handle_t handle = THREADING_INVALID_THREADHANDLE;
+    pthread_t handle = THREADING_INVALID_THREADHANDLE;
     pthread_create(&handle, NULL, function, NULL);
     return handle;
 }
 
-void threading_join_thread(threading_thread_handle_t handle)
+void threading_join_thread(pthread_t handle)
 {
     pthread_join(handle, NULL);
 }
