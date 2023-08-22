@@ -1,9 +1,9 @@
 #include "threading/threading.h"
 
-pthread_t threading_create_thread(threading_thread_function function)
+pthread_t threading_create_thread(threading_thread_function function, void* data)
 {
     pthread_t handle = THREADING_INVALID_THREADHANDLE;
-    pthread_create(&handle, NULL, function, NULL);
+    pthread_create(&handle, NULL, function, data);
     return handle;
 }
 
