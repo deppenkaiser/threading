@@ -7,9 +7,9 @@
 
 typedef pthread_mutex_t threading_critical_section;
 typedef threading_critical_section* threading_critical_section_t;
-typedef void* (*threading_thread_function)(void* puser_data);
+typedef void* (*threading_thread_function)(void* user_data);
 
-pthread_t threading_create_thread(threading_thread_function function, void* data);
+pthread_t threading_create_thread(threading_thread_function function, void* user_data);
 void threading_join_thread(pthread_t handle);
 void threading_initialize_critical_section(threading_critical_section_t critical_section);
 void threading_destroy_critical_section(threading_critical_section_t critical_section);
