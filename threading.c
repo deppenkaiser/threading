@@ -6,19 +6,19 @@ void threading_sleep(enum threading_sleep_resolution mode, uint32_t duration)
 
     switch (mode)
     {
-        case TS_NANO:
+        case TSR_NANO:
             ts.tv_nsec = duration;
             break;
     
-        case TS_MICRO:
+        case TSR_MICRO:
             ts.tv_nsec = 1000 * duration;
             break;
     
-        case TS_MILLI:
+        case TSR_MILLI:
             ts.tv_nsec = 1000 * 1000 * duration;
             break;
     
-        case TS_SECOND:
+        case TSR_SECOND:
             ts.tv_sec = duration;
             break;
     }

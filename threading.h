@@ -12,10 +12,10 @@ typedef void* (*threading_thread_function)(void* user_data);
 
 enum threading_sleep_resolution
 {
-    TS_NANO,
-    TS_MICRO,
-    TS_MILLI,
-    TS_SECOND
+    TSR_NANO,
+    TSR_MICRO,
+    TSR_MILLI,
+    TSR_SECOND
 };
 
 pthread_t threading_create_thread(threading_thread_function function, void* user_data);
