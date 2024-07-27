@@ -1,24 +1,26 @@
 #include "threading/threading.h"
 
-void threading_sleep(enum threading_sleep_resolution mode, uint32_t duration)
+#include <errno.h>
+
+void threading_sleep(enum threading_time_resolution mode, uint32_t duration)
 {
     struct timespec ts = {0};
 
     switch (mode)
     {
-        case TSR_NANO:
+        case TTR_NANO:
             ts.tv_nsec = duration;
             break;
     
-        case TSR_MICRO:
+        case TTR_MICRO:
             ts.tv_nsec = 1000 * duration;
             break;
     
-        case TSR_MILLI:
+        case TTR_MILLI:
             ts.tv_nsec = 1000 * 1000 * duration;
             break;
     
-        case TSR_SECOND:
+        case TTR_SECOND:
             ts.tv_sec = duration;
             break;
     }
@@ -59,4 +61,49 @@ void threading_lock_critical_section(threading_critical_section_t critical_secti
 void threading_unlock_critical_section(threading_critical_section_t critical_section)
 {
     pthread_mutex_unlock(critical_section);
+}
+
+void threading_initialize_semaphore(threading_semaphore_t semaphore, uint32_t value)
+{
+    sem_init(semaphore, 0, value);
+}
+
+void threading_destroy_semaphore(threading_semaphore_t semaphore)
+{
+    sem_destroy(semaphore);
+}
+
+void threading_increment_semaphore(threading_semaphore_t semaphore)
+{
+    sem_post(semaphore);
+}
+
+bool threading_wait_semaphore(threading_semaphore_t semaphore, enum threading_time_resolution mode, uint32_t duration)
+{
+    bool no_timeout = false;
+    struct timespec ts = {0};
+
+    clock_gettime(CLOCK_REALTIME, &ts);
+
+    switch (mode)
+    {
+        case TTR_NANO:
+            ts.tv_nsec += duration;
+            break;
+    
+        case TTR_MICRO:
+            ts.tv_nsec += 1000 * duration;
+            break;
+    
+        case TTR_MILLI:
+            ts.tv_nsec += 1000 * 1000 * duration;
+            break;
+    
+        case TTR_SECOND:
+            ts.tv_sec += duration;
+            break;
+    }
+
+    int32_t ret_value = sem_timedwait(semaphore, &ts);
+    return (ret_value != ETIMEDOUT) && (ret_value != -1);
 }
