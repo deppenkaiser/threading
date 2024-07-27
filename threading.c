@@ -60,3 +60,8 @@ void threading_unlock_critical_section(threading_critical_section_t critical_sec
 {
     pthread_mutex_unlock(critical_section);
 }
+
+void threading_initialize_semaphore(threading_semaphore_t semaphore, uint32_t value)
+{
+    sem_init(semaphore, 0, value);
+}
