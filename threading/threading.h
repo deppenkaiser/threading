@@ -22,14 +22,16 @@ enum threading_time_resolution
     TTR_SECOND
 };
 
-pthread_t threading_create_thread(threading_thread_function function, void* user_data);
-void threading_join_thread(pthread_t handle);
-void threading_initialize_critical_section(threading_critical_section_t critical_section);
-void threading_destroy_critical_section(threading_critical_section_t critical_section);
-void threading_lock_critical_section(threading_critical_section_t critical_section);
-void threading_unlock_critical_section(threading_critical_section_t critical_section);
-void threading_initialize_semaphore(threading_semaphore_t semaphore, uint32_t value);
-void threading_destroy_semaphore(threading_semaphore_t semaphore);
-void threading_increment_semaphore(threading_semaphore_t semaphore);
-bool threading_wait_semaphore(threading_semaphore_t semaphore, enum threading_time_resolution mode, uint32_t duration);
-void threading_sleep(enum threading_time_resolution mode, uint32_t duration);
+pthread_t threading_thread_create(threading_thread_function function, void* user_data);
+void threading_thread_join(pthread_t handle);
+void threading_thread_sleep(enum threading_time_resolution mode, uint32_t duration);
+void threading_critical_section_initialize(threading_critical_section_t critical_section);
+void threading_critical_section_destroy(threading_critical_section_t critical_section);
+void threading_critical_section_lock(threading_critical_section_t critical_section);
+void threading_critical_section_unlock(threading_critical_section_t critical_section);
+void threading_semaphore_initialize(threading_semaphore_t semaphore, uint32_t value);
+threading_semaphore_t threading_semaphore_open(const char* name, int32_t value);
+void threading_semaphore_close(threading_semaphore_t semaphore);
+void threading_semaphore_destroy(threading_semaphore_t semaphore);
+void threading_semaphore_increment(threading_semaphore_t semaphore);
+bool threading_semaphore_wait(threading_semaphore_t semaphore, enum threading_time_resolution mode, uint32_t duration);
