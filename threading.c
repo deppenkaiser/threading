@@ -3,6 +3,7 @@
 #include <errno.h>
 #include <time.h>
 #include <fcntl.h>
+#include <string/string.h>
 
 void threading_thread_sleep(enum threading_time_resolution mode, uint32_t duration)
 {
@@ -70,14 +71,25 @@ void threading_semaphore_initialize(threading_semaphore_t semaphore, uint32_t va
     sem_init(semaphore, 0, value);
 }
 
-threading_semaphore_t threading_semaphore_open(const char* name, int32_t value)
+threading_semaphore_t threading_semaphore_open(const char* name, bool exclusive, int32_t value)
 {
-    return sem_open(name, O_CREAT, O_RDWR, value);
+    string_t id = {0};
+    string_copy(id, sizeof(string_t), "/");
+    string_cat(id, sizeof(string_t), name);
+    return sem_open(id, exclusive ? O_CREAT | O_EXCL : O_CREAT, O_RDWR, value);
 }
 
 void threading_semaphore_close(threading_semaphore_t semaphore)
 {
     sem_close(semaphore);
+}
+
+void threading_semaphore_unlink(const char* name)
+{
+    string_t id = {0};
+    string_copy(id, sizeof(string_t), "/");
+    string_cat(id, sizeof(string_t), name);
+    sem_unlink(id);
 }
 
 void threading_semaphore_destroy(threading_semaphore_t semaphore)

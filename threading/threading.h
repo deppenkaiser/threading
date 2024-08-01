@@ -30,8 +30,9 @@ void threading_critical_section_destroy(threading_critical_section_t critical_se
 void threading_critical_section_lock(threading_critical_section_t critical_section);
 void threading_critical_section_unlock(threading_critical_section_t critical_section);
 void threading_semaphore_initialize(threading_semaphore_t semaphore, uint32_t value);
-threading_semaphore_t threading_semaphore_open(const char* name, int32_t value);
+threading_semaphore_t threading_semaphore_open(const char* name, bool exclusive, int32_t value);
 void threading_semaphore_close(threading_semaphore_t semaphore);
+void threading_semaphore_unlink(const char* name);
 void threading_semaphore_destroy(threading_semaphore_t semaphore);
 void threading_semaphore_increment(threading_semaphore_t semaphore);
 bool threading_semaphore_wait(threading_semaphore_t semaphore, enum threading_time_resolution mode, uint32_t duration);
