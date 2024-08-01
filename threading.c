@@ -1,8 +1,10 @@
 #include "threading/threading.h"
 
 #include <errno.h>
+#include <time.h>
+#include <fcntl.h>
 
-void threading_sleep(enum threading_time_resolution mode, uint32_t duration)
+void threading_thread_sleep(enum threading_time_resolution mode, uint32_t duration)
 {
     struct timespec ts = {0};
 
@@ -28,19 +30,19 @@ void threading_sleep(enum threading_time_resolution mode, uint32_t duration)
     nanosleep(&ts, NULL); 
 }
 
-pthread_t threading_create_thread(threading_thread_function function, void* user_data)
+pthread_t threading_thread_create(threading_thread_function function, void* user_data)
 {
     pthread_t handle = THREADING_INVALID_THREADHANDLE;
     pthread_create(&handle, NULL, function, user_data);
     return handle;
 }
 
-void threading_join_thread(pthread_t handle)
+void threading_thread_join(pthread_t handle)
 {
     pthread_join(handle, NULL);
 }
 
-void threading_initialize_critical_section(threading_critical_section_t critical_section)
+void threading_critical_section_initialize(threading_critical_section_t critical_section)
 {
     pthread_mutexattr_t mutexattr = {0};
     pthread_mutexattr_init(&mutexattr);
@@ -48,37 +50,47 @@ void threading_initialize_critical_section(threading_critical_section_t critical
     pthread_mutex_init(critical_section, &mutexattr);
 }
 
-void threading_destroy_critical_section(threading_critical_section_t critical_section)
+void threading_critical_section_destroy(threading_critical_section_t critical_section)
 {
     pthread_mutex_destroy(critical_section);
 }
 
-void threading_lock_critical_section(threading_critical_section_t critical_section)
+void threading_critical_section_lock(threading_critical_section_t critical_section)
 {
     pthread_mutex_lock(critical_section);
 }
 
-void threading_unlock_critical_section(threading_critical_section_t critical_section)
+void threading_critical_section_unlock(threading_critical_section_t critical_section)
 {
     pthread_mutex_unlock(critical_section);
 }
 
-void threading_initialize_semaphore(threading_semaphore_t semaphore, uint32_t value)
+void threading_semaphore_initialize(threading_semaphore_t semaphore, uint32_t value)
 {
     sem_init(semaphore, 0, value);
 }
 
-void threading_destroy_semaphore(threading_semaphore_t semaphore)
+threading_semaphore_t threading_semaphore_open(const char* name, int32_t value)
+{
+    return sem_open(name, O_CREAT, O_RDWR, value);
+}
+
+void threading_semaphore_close(threading_semaphore_t semaphore)
+{
+    sem_close(semaphore);
+}
+
+void threading_semaphore_destroy(threading_semaphore_t semaphore)
 {
     sem_destroy(semaphore);
 }
 
-void threading_increment_semaphore(threading_semaphore_t semaphore)
+void threading_semaphore_increment(threading_semaphore_t semaphore)
 {
     sem_post(semaphore);
 }
 
-bool threading_wait_semaphore(threading_semaphore_t semaphore, enum threading_time_resolution mode, uint32_t duration)
+bool threading_semaphore_wait(threading_semaphore_t semaphore, enum threading_time_resolution mode, uint32_t duration)
 {
     bool no_timeout = false;
     struct timespec ts = {0};
