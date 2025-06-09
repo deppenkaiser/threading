@@ -15,7 +15,7 @@ target_sources(threading PRIVATE
     threading.c
 )
 
-target_include_directories(threading PRIVATE
+target_include_directories(threading PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/../string
 )
 
