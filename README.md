@@ -37,3 +37,7 @@ cmake --build build
 
 In ein Projekt einbinden: `add_subdirectory(../../libraries/threading …)`,
 Einbindung des Headers über den Include-Pfad `<threading/threading.h>`.
+
+## Wiki
+
+Dokumentation: [threading – Thread- und Synchronisations-Helfer](https://czybor.i234.me/wiki/sw-module/threading/) (Quartz-Wiki)
