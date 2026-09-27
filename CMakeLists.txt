@@ -17,11 +17,8 @@ target_sources(threading PRIVATE
 	threading.c
 )
 
-target_include_directories(threading
-	PUBLIC
-		${CMAKE_CURRENT_SOURCE_DIR}/..
-	PRIVATE
-		${CMAKE_CURRENT_SOURCE_DIR}
+target_include_directories(threading PUBLIC
+	${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(threading
