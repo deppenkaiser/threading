@@ -1,9 +1,10 @@
 #include "threading/threading.h"
 
-#include <errno.h>
-#include <time.h>
-#include <fcntl.h>
 #include <string/string.h>
+
+#include <errno.h>
+#include <fcntl.h>
+#include <time.h>
 
 void threading_thread_sleep(enum threading_time_resolution mode, uint32_t duration)
 {
